@@ -10,28 +10,28 @@ def introduceDatos(listaalumno):
               Asignatura=input("Asignatura: " )
               nota=input("Notas: " )
               lista.append((Asignatura,D(nota)))
-                  
+         listaalumno.append(lista)         
     return listaalumno
 
 def ordenado(milista):
     from operator import itemgetter
-    
-    milistaordenada=sorted(milistaalumno,key=itemgetter(1))    
+    milistaordenada=sorted(milista,key=lambda x: x[0][1])    
     return milistaordenada
     
 def mostrar(milistaordenada):   
     print("ASIGNATURAS--Notas")
     print("=======================")
-    for i in range(2):
-        print("Alumno: ",milistaordenada[i][1]) 
-        print(milistaordenada[i][1],"-----",milistaordenada[i][3])
+    for alumno in milistaordenada:
+        print("Alumno: ", alumno[0][0])
+        print("Nombre: ", alumno[0][0])
+        for asignatura, nota in alumno[1:]: 
+            print(asignatura,"-----",nota)
 
 def main(args):
     
     milista=[] 
     milista=introduceDatos(milista)
-    
-    milistaordenada=ordenado(milistaalumno)
+    milistaordenada=ordenado(milista)
     mostrar(milistaordenada)
     print(milistaordenada)
         
