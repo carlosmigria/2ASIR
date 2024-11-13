@@ -20,10 +20,6 @@ def mostrar(milistaordenada):
     print("=======================")
     for i in range(5):
         print(milistaordenada[i][0],"-----",milistaordenada[i][1])   
-def eliminar(milistaordenada):
-   if milistaordenada=>5:
-      
-             
 def main(args):
     
     milista=[] 
