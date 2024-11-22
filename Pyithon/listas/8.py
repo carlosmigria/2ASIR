@@ -31,7 +31,7 @@ def mostrar(milistaordenada):
     print("ASIGNATURAS -- Notas")
     print("=======================")
     for alumno in milistaordenada:
-        print("\nAlumno:", alumno[0][0])
+        print("Alumno:", alumno[0][0])
         print("Nombre:", alumno[0][1])
         for asignatura, nota in alumno[1:-1]:
             print(asignatura, "-----", nota)
@@ -48,6 +48,7 @@ def main(args):
     milistaordenada = ordenado(milista)
     mostrar(milistaordenada)
     media_general = calcular_media_general(milista)
+    print("===================================")
     print("Media General de todos los alumnos:", media_general)
     
     return 0
