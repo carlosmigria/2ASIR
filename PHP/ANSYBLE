@@ -1,0 +1,22 @@
+Lo primero que tenemos que hacer es la intalacion de ansyble que seran los siguientes comandos.
+	sudo apt-add-repository ppa:ansible/ansible
+	sudo apt update
+	sudo apt install ansible
+Aqui lo que hacemos es la configuracion de los host de ansyble y los nombres de los services
+	sudo nano /etc/ansible/hosts
+	detro de este archivo ponemosd:
+	(nombre del server) ansible_host=(IP del server)
+	ansible-inventory --list -y (Con esto vemos la configuración que le hemos puesto al servidor en el ansyble)
+INSTALALMOS LA PILA LAMP EN ANSYBLE
+	git clone https://github.com/do-community/ansible-playbooks.git
+	cd ansible-playbooks
+	cd lamp_ubuntu1804/
+	nano vars/default.yml
+		la configuración de este archivo es:
+		---
+		mysql_root_password: "root"
+		app_user: "www-data"
+		http_host: "wp"
+		http_conf: "wp.conf"
+		http_port: "80"
+		disable_default: true
