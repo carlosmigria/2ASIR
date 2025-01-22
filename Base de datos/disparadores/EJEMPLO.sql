@@ -1,0 +1,12 @@
+delimiter ::
+CREATE TRIGGER preciopositivo
+BEFORE INSERT
+(AFTER)DEPENDE DE COMO LO QUIERAS PONER EN LA TARBLA ELIJES PONER UNO O OTRO
+ON productos FOR EACH ROW
+BEGIN
+	IF NEW.precioventa <0 THEN
+	set NEW.precioventa = 0;
+	END IF;
+END::
+delimiter ;
+

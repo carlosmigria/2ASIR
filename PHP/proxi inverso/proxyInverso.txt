@@ -1,0 +1,53 @@
+https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-22-04
+https://www.hostinger.es/tutoriales/como-configurar-proxy-inverso-nginx
+
+/etc/nginx/sites-available/proxy 
+server {
+    listen 80;
+    server_name vb;
+    return 301 https://vb;
+}
+
+server {
+        listen 443 ssl;
+        server_name vb;
+
+        ssl_certificate /etc/ssl/certs/vb.crt;
+        ssl_certificate_key /etc/ssl/private/vb.key;
+
+        location / {
+                proxy_pass http://127.0.0.1:8080;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+        }
+}
+
+/etc/apache2/sites-available/000-default.conf                                                  
+<VirtualHost *:8080>
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+
+        <Location />
+                Order deny,allow
+                Deny from all
+                Allow from 127.0.0.1
+        </Location>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+/etc/apache2/ports.conf                                                             
+Listen 8080
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>
