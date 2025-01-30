@@ -1,0 +1,41 @@
+sudo apt-get install vsftpd libpam-pwdfile
+nano /etc/vsftpd.conf
+	listen=YES
+	anonymous_enable=NO
+	local_enable=YES
+	write_enable=YES
+	local_umask=022
+	local_root=/var/www
+	chroot_local_user=YES
+	allow_writeable_chroot=YES
+	hide_ids=YES
+
+	#virutal user settings
+	user_config_dir=/etc/vsftpd_user_conf
+	guest_enable=YES
+	virtual_use_local_privs=YES
+	pam_service_name=vsftpd
+	nopriv_user=vsftpd
+	guest_username=vsftpd
+mkdir /etc/vsftpd
+sudo htpasswd -cd /etc/vsftpd/ftpd.passwd user1
+sudo htpasswd -d /etc/vsftpd/ftpd.passwd user2
+sudo mv /etc/pam.d/vsftpd /etc/pam.d/vsftpd.bak
+sudo vim /etc/pam.d/vsftpd
+auth required pam_pwdfile.so pwdfile /etc/vsftpd/ftpd.passwd
+account required pam_permit.so
+sudo useradd --home /home/vsftpd --gid nogroup -m --shell /bin/false vsftpd
+sudo /etc/init.d/vsftpd restart
+sudo service vsftpd restart
+ / [root = /var/www/user1] => 555
+www [ /var/www/user1/www ] => 755
+docs [ /var/www/user1/docs ] => 755
+
+mkdir /var/www/user1`
+chmod -w /var/www/user1
+mkdir www/user1/www
+chmod -R 755 /var/www/user1/www
+chown -R vsftpd:nogroup /var/www/user1
+sudo htpasswd -d /etc/vsftpd/ftpd.passwd theadmin
+chroot_list_enable=YES
+vsftpd.chroot_list
